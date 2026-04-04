@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HireGenius AI - Ultra Premium Job Bot</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins (Headings) & Montserrat (Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#7F5AF0',   // Purple
+                        secondary: '#2CB67D', // Green
+                        accent: '#FF8906',    // Orange
+                        dark: {
+                            bg: '#0B0D17',    // Deep futuristic dark
+                            card: '#16161A'   // Elevated dark
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'blob': 'blob 10s infinite',
+                        'gradient-x': 'gradient-x 15s ease infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        'gradient-x': {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B0D17;
+            color: #fffffe;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Luxury Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0B0D17; }
+        ::-webkit-scrollbar-thumb { 
+            background: rgba(127, 90, 240, 0.3); 
+            border-radius: 10px; 
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #7F5AF0; }
+
+        /* Animated Mesh Background */
+        .bg-mesh {
+            background: linear-gradient(-45deg, #0B0D17, #16161A, #2b1c54, #0f2722);
+            background-size: 400% 400%;
+            animation: gradient-x 15s ease infinite;
+        }
+
+        /* Advanced Glassmorphism */
+        .glass-nav {
+            background: rgba(11, 13, 23, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(127, 90, 240, 0.15);
+        }
+        
+        .glass-card {
+            background: rgba(22, 22, 26, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(127, 90, 240, 0.5);
+            box-shadow: 0 15px 40px 0 rgba(127, 90, 240, 0.2);
+        }
+
+        /* Neon Glowing Buttons */
+        .btn-neon {
+            background: linear-gradient(135deg, #7F5AF0, #6246ea);
+            box-shadow: 0 0 15px rgba(127, 90, 240, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #FF8906, #7F5AF0);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+        .btn-neon:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 10px 30px rgba(127, 90, 240, 0.7);
+        }
+        .btn-neon:hover::before { opacity: 1; }
+
+        /* Secondary Hover Button */
+        .btn-outline-neon {
+            border: 1px solid rgba(127, 90, 240, 0.5);
+            background: rgba(127, 90, 240, 0.05);
+            transition: all 0.3s ease;
+        }
+        .btn-outline-neon:hover {
+            background: rgba(127, 90, 240, 0.15);
+            border-color: #7F5AF0;
+            box-shadow: 0 0 20px rgba(127, 90, 240, 0.3);
+        }
+
+        /* Nav Link Hover */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -4px; left: 0;
+            background: #2CB67D;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px #2CB67D;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(to right, #7F5AF0, #FF8906);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Fade Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* Typing Dots */
+        .typing-dot { animation: typing 1.4s infinite ease-in-out both; }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.5;}
+            40% { transform: scale(1); opacity: 1;}
+        }
+
+        /* Chat bubbles specific */
+        .user-bubble {
+            background: linear-gradient(135deg, #7F5AF0, #5c3bd6);
+            box-shadow: 0 5px 15px rgba(127, 90, 240, 0.3);
+            border-bottom-right-radius: 4px;
+        }
+        .bot-bubble {
+            background: rgba(22, 22, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(127, 90, 240, 0.2);
+            border-bottom-left-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-mesh">
+
+    <!-- Ambient Background Blobs -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-40 mix-blend-screen">
+        <div class="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-primary/30 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[35rem] h-[35rem] bg-accent/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[40rem] h-[40rem] bg-secondary/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob" style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-5 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer group">
+                <div class="w-10 h-10 rounded-xl bg-dark-card border border-primary/30 flex items-center justify-center text-primary font-bold shadow-[0_0_15px_rgba(127,90,240,0.3)] group-hover:shadow-[0_0_25px_rgba(127,90,240,0.6)] transition-all">
+                    <i class="fa-solid fa-brain text-xl group-hover:scale-110 transition-transform"></i>
+                </div>
+                <span class="text-2xl font-heading font-bold tracking-tight text-white">HireGenius <span class="text-gradient">AI</span></span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-10 text-sm font-medium text-gray-300">
+                <a href="#home" class="nav-link hover:text-white transition-colors">Platform</a>
+                <a href="#features" class="nav-link hover:text-white transition-colors">Capabilities</a>
+                <a href="#candidates" class="nav-link hover:text-white transition-colors">Data Models</a>
+                <a href="#contact" class="nav-link hover:text-white transition-colors">Company</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="toggleChatbot()" class="hidden md:block btn-neon px-6 py-2.5 rounded-full text-white text-sm font-semibold tracking-wide">
+                    Initialize Demo
+                </button>
+                <button class="md:hidden text-gray-300 hover:text-primary transition-colors">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 z-10">
+        <div class="relative max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-secondary/30 bg-secondary/10 text-secondary text-xs font-semibold tracking-widest uppercase mb-8 fade-in-up shadow-[0_0_10px_rgba(44,182,125,0.2)]">
+                <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                System Operational • v3.0
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tight mb-6 leading-[1.1] fade-in-up" style="transition-delay: 100ms;">
+                Recruitment, <br/>
+                <span class="text-gradient">Engineered by AI.</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl font-light fade-in-up" style="transition-delay: 200ms;">
+                The next-generation autonomous recruiter. Analyze parameters, verify skills, and shortlist elite talent in milliseconds using advanced neural networks.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-5 fade-in-up" style="transition-delay: 300ms;">
+                <button onclick="toggleChatbot()" class="btn-neon px-8 py-4 rounded-full text-white font-semibold text-lg flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-power-off"></i> Deploy AI Recruiter
+                </button>
+                <a href="#features" class="btn-outline-neon px-8 py-4 rounded-full text-white font-semibold text-lg flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-code"></i> View Architecture
+                </a>
+            </div>
+
+            <!-- Floating Status UI -->
+            <div class="mt-24 relative w-full max-w-3xl mx-auto fade-in-up animate-float" style="transition-delay: 400ms;">
+                <div class="glass-card rounded-2xl p-5 flex items-center gap-5 backdrop-blur-2xl">
+                    <div class="w-14 h-14 rounded-full bg-dark-bg border border-primary/50 flex items-center justify-center text-primary shadow-[0_0_15px_rgba(127,90,240,0.5)]">
+                        <i class="fa-solid fa-microchip text-2xl"></i>
+                    </div>
+                    <div class="text-left flex-1">
+                        <h4 class="font-heading font-bold text-white text-lg tracking-wide">Processing Pipeline</h4>
+                        <p class="text-sm text-gray-400 mt-1">10,492 profiles analyzed. 99.8% accuracy rate.</p>
+                    </div>
+                    <div class="hidden sm:block h-10 w-32 bg-dark-bg rounded-lg p-1 border border-white/5 relative overflow-hidden">
+                        <div class="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-secondary w-[85%] rounded opacity-80 animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-32 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 fade-in-up">
+                <h2 class="text-4xl md:text-5xl font-heading font-bold mb-6">Unfair <span class="text-gradient">Advantage</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg font-light">Silicon Valley grade algorithms designed to eliminate bias, assess technical depth, and identify outlier talent instantly.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-card p-10 rounded-3xl group fade-in-up relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-dark-bg border border-primary/30 text-primary flex items-center justify-center text-2xl mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(127,90,240,0.4)] transition-all duration-300">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold mb-4 text-white">Neural Parsing</h3>
+                    <p class="text-gray-400 leading-relaxed font-light">
+                        Extracts context and semantic meaning from unstructured resumes, bypassing traditional keyword-matching limitations entirely.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-card p-10 rounded-3xl group fade-in-up relative overflow-hidden" style="transition-delay: 100ms;">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-dark-bg border border-accent/30 text-accent flex items-center justify-center text-2xl mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,137,6,0.4)] transition-all duration-300">
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold mb-4 text-white">Hyper-Speed Shortlist</h3>
+                    <p class="text-gray-400 leading-relaxed font-light">
+                        Process and rank thousands of applicants in milliseconds. What used to take HR weeks is now completed before you finish your coffee.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card p-10 rounded-3xl group fade-in-up relative overflow-hidden" style="transition-delay: 200ms;">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-dark-bg border border-secondary/30 text-secondary flex items-center justify-center text-2xl mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(44,182,125,0.4)] transition-all duration-300">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold mb-4 text-white">Bias Elimination</h3>
+                    <p class="text-gray-400 leading-relaxed font-light">
+                        Blind evaluation mode focuses purely on skills and impact metrics, ensuring diversity and meritocracy in your candidate pipeline.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Candidate Dataset Preview -->
+    <section id="candidates" class="py-32 relative z-10 border-t border-white/5 bg-dark-bg/50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 fade-in-up">
+                <div>
+                    <div class="text-primary font-semibold tracking-widest uppercase text-sm mb-3">Live Database</div>
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold mb-4">Curated <span class="text-white">Outliers</span></h2>
+                    <p class="text-gray-400 max-w-xl text-lg font-light">Simulated view of the high-caliber talent identified and verified by our proprietary engine.</p>
+                </div>
+                <button class="mt-8 md:mt-0 btn-outline-neon px-6 py-3 rounded-full text-sm font-semibold tracking-wide flex items-center gap-2">
+                    Access Full DB <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Data Card 1 -->
+                <div class="glass-card p-8 rounded-3xl group fade-in-up border-t border-primary/20">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="flex gap-4 items-center">
+                            <div class="relative">
+                                <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Profile" class="w-16 h-16 rounded-xl object-cover border-2 border-dark-card filter grayscale group-hover:grayscale-0 transition-all duration-500">
+                                <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-secondary border-2 border-dark-card rounded-full flex items-center justify-center text-[10px] text-dark-bg shadow-[0_0_10px_rgba(44,182,125,0.8)]">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-heading font-bold text-white tracking-wide">A. Sharma</h4>
+                                <p class="text-primary text-sm font-medium">Data Scientist</p>
+                            </div>
+                        </div>
+                        <div class="bg-primary/10 text-primary px-3 py-1 rounded-md text-xs font-bold border border-primary/20">98% Match</div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                            <span class="text-gray-500">Experience</span>
+                            <span class="text-gray-200 font-medium">L4 (6 Years)</span>
+                        </div>
+                        <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                            <span class="text-gray-500">Key Expertise</span>
+                            <span class="text-white font-medium">Machine Learning</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-dark-bg border border-white/5 text-xs text-gray-300 font-medium">Python</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-dark-bg border border-white/5 text-xs text-gray-300 font-medium">TensorFlow</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-dark-bg border border-white/5 text-xs text-gray-300 font-medium">PyTorch</span>
+                    </div>
+                </div>
+
+                <!-- Data Card 2 -->
+                <div class="glass-card p-8 rounded-3xl group fade-in-up border-t border-accent/20" style="transition-delay: 100ms;">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="flex gap-4 items-center">
+                            <div class="relative">
+                                <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="Profile" class="w-16 h-16 rounded-xl object-cover border-2 border-dark-card filter grayscale group-hover:grayscale-0 transition-all duration-500">
+                                <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-secondary border-2 border-dark-card rounded-full flex items-center justify-center text-[10px] text-dark-bg shadow-[0_0_10px_rgba(44,182,125,0.8)]">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-heading font-bold text-white tracking-wide">P. Mehta</h4>
+                                <p class="text-accent text-sm font-medium">Frontend Dev</p>
+                            </div>
+                        </div>
+                        <div class="bg-accent/10 text-accent px-3 py-1 rounded-md text-xs font-bold border border-accent/20">95% Match</div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                            <span class="text-gray-500">Experience</span>
+                            <span class="text-gray-200 font-medium">L3 (4 Years)</span>
+                        </div>
+                        <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                            <span class="text-gray-500">Key Expertise</span>
+                            <span class="text-white font-medium">Architecture</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-dark-bg border border-white/5 text-xs text-gray-300 font-medium">React</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-dark-bg border border-white/5 text-xs text-gray-300 font-medium">TypeScript</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-dark-bg border border-white/5 text-xs text-gray-300 font-medium">Next.js</span>
+                    </div>
+                </div>
+
+                <!-- Data Card 3 -->
+                <div class="glass-card p-8 rounded-3xl group fade-in-up border-t border-secondary/20" style="transition-delay: 200ms;">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="flex gap-4 items-center">
+                            <div class="relative">
+                                <img src="https://i.pravatar.cc/150?u=a04258a2462d826712d" alt="Profile" class="w-16 h-16 rounded-xl object-cover border-2 border-dark-card filter grayscale group-hover:grayscale-0 transition-all duration-500">
+                                <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-secondary border-2 border-dark-card rounded-full flex items-center justify-center text-[10px] text-dark-bg shadow-[0_0_10px_rgba(44,182,125,0.8)]">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-heading font-bold text-white tracking-wide">R. Verma</h4>
+                                <p class="text-secondary text-sm font-medium">Backend Dev</p>
+                            </div>
+                        </div>
+                        <div class="bg-secondary/10 text-secondary px-3 py-1 rounded-md text-xs font-bold border border-secondary/20">92% Match</div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                            <span class="text-gray-500">Experience</span>
+                            <span class="text-gray-200 font-medium">L5 (8 Years)</span>
+                        </div>
+                        <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                            <span class="text-gray-500">Key Expertise</span>
+                            <span class="text-white font-medium">Distributed Sys</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-dark-bg border border-white/5 text-xs text-gray-300 font-medium">Node.js</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-dark-bg border border-white/5 text-xs text-gray-300 font-medium">Go</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-dark-bg border border-white/5 text-xs text-gray-300 font-medium">PostgreSQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="relative z-10 bg-dark-bg border-t border-white/5 pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 rounded-lg bg-primary/20 border border-primary/50 flex items-center justify-center text-primary text-sm shadow-[0_0_10px_rgba(127,90,240,0.3)]">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <span class="text-2xl font-heading font-bold text-white tracking-tight">HireGenius <span class="text-primary">AI</span></span>
+                    </div>
+                    <p class="text-gray-400 max-w-sm mb-8 font-light leading-relaxed">Building the autonomous future of recruitment. Engineered in Silicon Valley, deployed globally to top tier organizations.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-xl bg-dark-card border border-white/5 flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary/50 hover:shadow-[0_0_15px_rgba(127,90,240,0.3)] transition-all"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-dark-card border border-white/5 flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary/50 hover:shadow-[0_0_15px_rgba(127,90,240,0.3)] transition-all"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-dark-card border border-white/5 flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary/50 hover:shadow-[0_0_15px_rgba(127,90,240,0.3)] transition-all"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-heading font-semibold mb-6 tracking-wide">Platform</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm font-light">
+                        <li><a href="#" class="hover:text-primary transition-colors">Neural Capabilities</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">API & Integrations</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Enterprise Security</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">System Status</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-heading font-semibold mb-6 tracking-wide">Organization</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm font-light">
+                        <li><a href="#" class="hover:text-primary transition-colors">About Research</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors flex items-center gap-2">Careers <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/20 text-primary border border-primary/30">WE'RE HIRING</span></a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Privacy Protocol</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Contact Sales</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 font-light">
+                <p>&copy; 2026 HireGenius AI Technologies. All rights reserved.</p>
+                <p class="mt-2 md:mt-0 flex items-center gap-1">Operated with <i class="fa-solid fa-bolt text-primary"></i> precision.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- CHATBOT UI MODAL (ULTRA PREMIUM)           -->
+    <!-- ========================================== -->
+    <div id="chatbotModal" class="fixed inset-0 z-[100] hidden">
+        <!-- Blur Backdrop -->
+        <div class="absolute inset-0 bg-dark-bg/80 backdrop-blur-xl transition-opacity" onclick="toggleChatbot()"></div>
+        
+        <!-- Chat Container -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md h-[650px] max-h-[85vh] bg-dark-card/90 backdrop-blur-2xl border border-primary/30 rounded-3xl shadow-[0_0_50px_rgba(127,90,240,0.15)] flex flex-col overflow-hidden animate-float text-sm" style="animation: none;">
+            
+            <!-- Header -->
+            <div class="p-5 border-b border-white/5 bg-gradient-to-r from-dark-bg to-dark-card flex justify-between items-center shrink-0">
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-xl bg-dark-bg border border-primary/40 flex items-center justify-center text-primary shadow-[0_0_15px_rgba(127,90,240,0.4)]">
+                            <i class="fa-solid fa-robot text-lg"></i>
+                        </div>
+                        <span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-secondary border-2 border-dark-card rounded-full shadow-[0_0_8px_rgba(44,182,125,0.8)]"></span>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-bold text-white text-base tracking-wide">Genius.ai</h3>
+                        <p class="text-xs text-primary font-medium flex items-center gap-1.5 mt-0.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span> Analyzing Data
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="restartChat()" title="Restart Session" class="w-9 h-9 rounded-full bg-dark-bg border border-white/5 hover:border-primary/50 text-gray-400 hover:text-primary transition-all flex items-center justify-center">
+                        <i class="fa-solid fa-rotate-right text-sm"></i>
+                    </button>
+                    <button onclick="toggleChatbot()" class="w-9 h-9 rounded-full bg-dark-bg border border-white/5 hover:border-accent/50 text-gray-400 hover:text-accent transition-all flex items-center justify-center">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="chatMessages" class="flex-1 p-5 overflow-y-auto flex flex-col gap-5 scroll-smooth bg-[#0B0D17]/50">
+                <!-- Messages will be injected by JS -->
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-5 border-t border-white/5 bg-dark-card shrink-0">
+                <form id="chatForm" class="flex gap-3 relative">
+                    <input type="text" id="chatInput" autocomplete="off" placeholder="Enter your response..." class="flex-1 bg-dark-bg border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all disabled:opacity-50 disabled:cursor-not-allowed font-light">
+                    <button type="submit" id="submitBtn" class="w-12 h-12 rounded-xl btn-neon text-white flex items-center justify-center transition-colors shrink-0 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-paper-plane text-sm ml-1"></i>
+                    </button>
+                </form>
+                <div class="text-center mt-3">
+                    <span class="text-[10px] font-medium text-gray-600 uppercase tracking-widest">Encrypted Neural Connection</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chat Trigger -->
+    <button onclick="toggleChatbot()" class="fixed bottom-8 right-8 w-16 h-16 rounded-full btn-neon text-white flex items-center justify-center text-2xl hover:scale-110 transition-transform z-40 group">
+        <i class="fa-solid fa-comment-dots group-hover:hidden"></i>
+        <i class="fa-solid fa-robot hidden group-hover:block"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Dynamic Glass Navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-[0_10px_30px_rgba(0,0,0,0.5)]');
+                nav.classList.remove('py-5');
+                nav.classList.add('py-3');
+            } else {
+                nav.classList.remove('shadow-[0_10px_30px_rgba(0,0,0,0.5)]');
+                nav.classList.remove('py-3');
+                nav.classList.add('py-5');
+            }
+        });
+
+        // ==========================================
+        // SMART CHATBOT LOGIC (UI UPDATED FOR PREMIUM THEME)
+        // ==========================================
+        const modal = document.getElementById('chatbotModal');
+        const chatForm = document.getElementById('chatForm');
+        const chatInput = document.getElementById('chatInput');
+        const chatMessages = document.getElementById('chatMessages');
+        const submitBtn = document.getElementById('submitBtn');
+
+        let candidateData = { name: '', role: '', experience: '', skill: '' };
+        let currentStep = 'init';
+        let chatInitialized = false;
+
+        const sampleCandidates = [
+            { name: "Aarav Sharma", role: "Data Scientist", skills: "Python, ML", img: "https://i.pravatar.cc/150?u=a042581f4e29026704d" },
+            { name: "Priya Mehta", role: "Frontend Dev", skills: "React, UI/UX", img: "https://i.pravatar.cc/150?u=a042581f4e29026024d" },
+            { name: "Rohan Verma", role: "Backend Dev", skills: "Node.js, APIs", img: "https://i.pravatar.cc/150?u=a04258a2462d826712d" }
+        ];
+
+        function toggleChatbot() {
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                if (!chatInitialized) {
+                    initChat();
+                } else if (!['role', 'experience', 'end'].includes(currentStep)) {
+                    setTimeout(() => chatInput.focus(), 100);
+                }
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function initChat() {
+            chatMessages.innerHTML = '';
+            candidateData = { name: '', role: '', experience: '', skill: '' };
+            currentStep = 'name';
+            chatInitialized = true;
+            enableInput();
+            addBotMessage("Initiating protocol... 👋 Hello! I am Genius.ai. To calibrate your screening profile, what is your full name?", null, 600);
+        }
+
+        function restartChat() { initChat(); }
+        function scrollToBottom() { chatMessages.scrollTop = chatMessages.scrollHeight; }
+
+        function appendUserMessage(text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex gap-3 max-w-[85%] ml-auto flex-row-reverse fade-in-up visible';
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-dark-bg border border-primary/40 shrink-0 flex items-center justify-center text-xs shadow-[0_0_10px_rgba(127,90,240,0.2)]">
+                    <i class="fa-solid fa-user text-gray-300"></i>
+                </div>
+                <div class="user-bubble text-white px-4 py-3 text-sm font-medium leading-relaxed">${text}</div>
+            `;
+            chatMessages.appendChild(msgDiv);
+            scrollToBottom();
+        }
+
+        function showTypingIndicator() {
+            const msgDiv = document.createElement('div');
+            msgDiv.id = 'typingIndicator';
+            msgDiv.className = 'flex gap-3 max-w-[85%] fade-in-up visible';
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-dark-bg border border-primary/40 shrink-0 flex items-center justify-center text-xs shadow-[0_0_10px_rgba(127,90,240,0.4)]">
+                    <i class="fa-solid fa-robot text-primary"></i>
+                </div>
+                <div class="bot-bubble px-5 py-3.5 flex gap-1.5 items-center h-[46px]">
+                    <div class="w-1.5 h-1.5 bg-primary rounded-full typing-dot"></div>
+                    <div class="w-1.5 h-1.5 bg-primary rounded-full typing-dot"></div>
+                    <div class="w-1.5 h-1.5 bg-primary rounded-full typing-dot"></div>
+                </div>
+            `;
+            chatMessages.appendChild(msgDiv);
+            scrollToBottom();
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove();
+        }
+
+        function addBotMessage(text, options = null, delay = 1000) {
+            disableInput();
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                removeTypingIndicator();
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'flex gap-3 max-w-[85%] fade-in-up visible';
+                
+                let optionsHTML = '';
+                if (options && options.length > 0) {
+                    optionsHTML = `<div class="flex flex-wrap gap-2 mt-3 option-container">`;
+                    options.forEach(opt => {
+                        optionsHTML += `<button onclick="handleOptionClick(this, '${opt.value}', '${opt.label}')" class="px-4 py-2 rounded-xl bg-dark-bg border border-primary/30 hover:bg-primary/20 hover:border-primary text-xs font-semibold text-gray-300 hover:text-white transition-all shadow-sm">${opt.label}</button>`;
+                    });
+                    optionsHTML += `</div>`;
+                }
+
+                msgDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-dark-bg border border-primary/40 shrink-0 flex items-center justify-center text-xs shadow-[0_0_10px_rgba(127,90,240,0.4)] mt-1">
+                        <i class="fa-solid fa-robot text-primary"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="bot-bubble text-gray-200 px-4 py-3 text-sm leading-relaxed">
+                            ${text}
+                        </div>
+                        ${optionsHTML}
+                    </div>
+                `;
+                
+                chatMessages.appendChild(msgDiv);
+                scrollToBottom();
+                
+                if (!options) {
+                    enableInput();
+                    setTimeout(() => chatInput.focus(), 10);
+                } else {
+                    chatInput.placeholder = "Awaiting selection...";
+                }
+            }, delay);
+        }
+
+        function disableInput() {
+            chatInput.disabled = true;
+            submitBtn.disabled = true;
+            chatInput.classList.add('opacity-50');
+        }
+
+        function enableInput() {
+            chatInput.disabled = false;
+            submitBtn.disabled = false;
+            chatInput.classList.remove('opacity-50');
+            chatInput.placeholder = "Enter your response...";
+        }
+
+        function handleOptionClick(btnElement, value, label) {
+            const container = btnElement.closest('.option-container');
+            if(container) container.remove();
+            appendUserMessage(label);
+            processInput(value);
+        }
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = chatInput.value.trim();
+            if (!text) return;
+            appendUserMessage(text);
+            chatInput.value = '';
+            processInput(text);
+        });
+
+        function processInput(input) {
+            switch(currentStep) {
+                case 'name':
+                    candidateData.name = input;
+                    askRole();
+                    break;
+                case 'role':
+                    candidateData.role = input;
+                    askExperience();
+                    break;
+                case 'experience':
+                    candidateData.experience = input;
+                    askSkill();
+                    break;
+                case 'skill':
+                    candidateData.skill = input;
+                    showResult();
+                    break;
+            }
+        }
+
+        function askRole() {
+            currentStep = 'role';
+            const options = [
+                { value: "Frontend Developer", label: "Frontend Developer" },
+                { value: "Backend Developer", label: "Backend Developer" },
+                { value: "Data Scientist", label: "Data Scientist" },
+                { value: "AI Engineer", label: "AI Engineer" }
+            ];
+            addBotMessage(`Acknowledged, <span class="font-bold text-primary">${candidateData.name}</span>. Please specify the engineering discipline you are applying for.`, options);
+        }
+
+        function askExperience() {
+            currentStep = 'experience';
+            const options = [
+                { value: "0-1 years", label: "Junior (0-1 YOE)" },
+                { value: "2-5 years", label: "Mid-Level (2-5 YOE)" },
+                { value: "5+ years", label: "Senior (5+ YOE)" }
+            ];
+            addBotMessage(`Configuring parameters for ${candidateData.role}. Select your verified industry experience level.`, options);
+        }
+
+        function askSkill() {
+            currentStep = 'skill';
+            addBotMessage(`Input your primary technical competency or framework. (e.g., React, Python, Distributed Systems)`);
+        }
+
+        function showResult() {
+            currentStep = 'end';
+            disableInput();
+            showTypingIndicator();
+            chatInput.placeholder = "Session Terminated.";
+            
+            setTimeout(() => {
+                removeTypingIndicator();
+                
+                let sampleHTML = `
+                    <div class="mt-4 p-3 bg-dark-bg rounded-xl border border-white/5">
+                        <p class="text-[10px] text-gray-500 mb-2 uppercase tracking-widest font-bold">Similar Network Profiles:</p>
+                        <div class="flex flex-col gap-2">`;
+                    
+                sampleCandidates.forEach(cand => {
+                    sampleHTML += `
+                        <div class="flex items-center gap-3 p-2 bg-dark-card rounded-lg border border-white/5 hover:border-primary/30 transition-colors">
+                            <img src="${cand.img}" class="w-8 h-8 rounded-md filter grayscale">
+                            <div class="text-xs">
+                                <p class="text-gray-200 font-semibold">${cand.name}</p>
+                                <p class="text-gray-500 text-[10px] font-medium">${cand.role} • <span class="text-primary">${cand.skills}</span></p>
+                            </div>
+                        </div>`;
+                });
+                sampleHTML += `</div></div>`;
+
+                const finalMsgDiv = document.createElement('div');
+                finalMsgDiv.className = 'flex gap-3 max-w-[95%] fade-in-up visible';
+                finalMsgDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-dark-bg border border-secondary/50 shrink-0 flex items-center justify-center text-xs shadow-[0_0_15px_rgba(44,182,125,0.4)] mt-1">
+                        <i class="fa-solid fa-check-double text-secondary"></i>
+                    </div>
+                    <div class="flex flex-col w-full">
+                        <div class="bot-bubble text-gray-200 rounded-2xl p-5 shadow-sm w-full border-secondary/30">
+                            <p class="font-heading font-bold text-white text-lg mb-2 flex items-center gap-2">
+                                Data Synchronized 
+                                <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                            </p>
+                            <p class="text-sm mb-5 text-gray-400 font-light">
+                                Evaluation complete, <span class="text-white font-medium">${candidateData.name}</span>. Profile added to the elite shortlist.
+                            </p>
+                            
+                            <div class="bg-dark-bg rounded-xl p-4 border border-white/5 text-xs text-gray-400 grid grid-cols-2 gap-3">
+                                <div><span class="text-gray-600 block mb-1 uppercase tracking-wider text-[9px] font-bold">Designation</span><span class="font-semibold text-gray-200">${candidateData.role}</span></div>
+                                <div><span class="text-gray-600 block mb-1 uppercase tracking-wider text-[9px] font-bold">Tenure</span><span class="font-semibold text-gray-200">${candidateData.experience}</span></div>
+                                <div class="col-span-2 mt-1"><span class="text-gray-600 block mb-1 uppercase tracking-wider text-[9px] font-bold">Core Vector</span><span class="font-semibold text-secondary text-sm">${candidateData.skill}</span></div>
+                            </div>
+                            
+                            ${sampleHTML}
+                            
+                            <div class="mt-5 pt-4 border-t border-white/5 flex items-center justify-between">
+                                <p class="text-xs text-secondary font-semibold tracking-wide">Recruitment Ping Sent</p>
+                                <button onclick="restartChat()" class="text-xs text-primary font-medium hover:text-white transition-colors">Re-Initialize</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                chatMessages.appendChild(finalMsgDiv);
+                scrollToBottom();
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
