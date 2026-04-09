@@ -78,9 +78,11 @@ The system follows a **step-by-step screening pipeline**:
 
 ```
 📁 Job-Pre-Screening-Bot
-│── index.html
 │── README.md
-│── screenshot.png
+│── index.html
+│── screenshot_1.png
+│── screenshot_2.png
+│── screenshot_3.png
 ```
 
 ---
