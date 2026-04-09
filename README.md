@@ -108,7 +108,18 @@ index.html
 
 ## 📸 Screenshots
 
-![App Screenshot](./screenshot.png)
+### 🔥 Main Interface
+
+![Main UI](./screenshot_1.png)
+
+---
+
+### 🤖 Chatbot Interaction
+
+<p align="center">
+  <img src="./screenshot_2.png" width="45%" />
+  <img src="./screenshot_3.png" width="45%" />
+</p>
 
 ---
 
